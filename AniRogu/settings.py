@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'AniRogu.wsgi.application'
 DATABASES = { # PostgreSQL Database Localhost
 'default': {
      'ENGINE': 'django.db.backends.postgresql',
-     'NAME': '', # Provide Database Name
-     'USER': '', # Provide Database User
-     'PASSWORD': '', # Provide Database Password
+     'NAME': 'AniRogu', # Provide Database Name
+     'USER': 'postgres', # Provide Database User
+     'PASSWORD': 'admin', # Provide Database Password
      'HOST': 'localhost',
      'PORT': '5432',
  }
@@ -158,6 +158,7 @@ LOGIN_REDIRECT_URL = "/"
 
 LOGOUT_REDIRECT_URL = "/"
 
+AUTH_USER_MODEL = "backend.User" # Permission for Authentication
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

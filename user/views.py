@@ -1,6 +1,9 @@
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 def userDashboard(request):
-    return render(request, 'dashboard.html')
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        return render(request, 'dashboard.html')

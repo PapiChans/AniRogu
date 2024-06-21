@@ -14,3 +14,11 @@
 - Date June 19, 2024
 - Add AniRogu Images and Assets
 - Change Template
+
+## 0.2.0
+- Date June 21, 2024
+- Add Login Authentication System
+- Add New Library: SweetAlert
+- Add New Library: Notyf
+- Add Csrf-Token, Boostrap Validation and Jquery
+- Add Models for User Login

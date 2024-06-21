@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <title>AniRogu | Sign-up</title>
+        <!-- CSS files -->
+        <link href="{% static 'assets/css/tabler.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'assets/css/demo.min.css' %}" rel="stylesheet"/>
+        <link rel="icon" href="{% static 'assets/images/logo.png' %}" type="image/x-icon">
+        <style>
+          @import url('https://rsms.me/inter/inter.css');
+          :root {
+              --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+          }
+          body {
+              font-feature-settings: "cv03", "cv04", "cv11";
+          }
+        </style>
+    </head>
+    <body data-bs-theme="dark" class=" d-flex flex-column">
+        <div class="page page-center">
+          <div class="container py-4" style="max-width: 40rem;">
+            <div class="text-center mb-3">
+                <a href="{% url 'index' %}" class="navbar-brand">
+                  <img src="{% static 'assets/images/logotext.png' %}" width="150" height="60" alt="AniRogu" class="navbar-brand" >
+                </a>
+            </div>
+            <form id="SignupForm" class="card card-md needs-validation" action="{% url 'auth/signup' %}" method="POST" novalidate>
+              <div class="card-body">
+                  <h2 class="h2 card-title text-purple mb-2">Create new account</h2>
+                  {% csrf_token %}
+                  {% if form.errors %}
+                  <div class="alert alert-purple">
+                      <span class="text-white">Please correct the following errors:</span>
+                      <ul class="text-danger">
+                          {% for field, errors in form.errors.items %}
+                              {% for error in errors %}
+                                  <li class="text-danger">{{ error }}</li>
+                              {% endfor %}
+                          {% endfor %}
+                      </ul>
+                  </div>
+                  {% endif %}
+                  <div class="row">
+                      <div class="mb-3 col-6">
+                          <label class="form-label">Profile Name</label>
+                          <input type="text" class="form-control" id="profile_name" name="profile_name" placeholder="Enter Profile Name" maxlength="20" required value="{{ form.data.profile_name }}">
+                      </div>
+                      <div class="mb-3 col-6">
+                          <label class="form-label">Username / Email Address</label>
+                          <input type="email" class="form-control" id="username" name="username" placeholder="Enter E-mail Address" required value="{{ form.data.username }}">
+                      </div>
+                      <div class="mb-3 col-6">
+                          <label class="form-label">Password</label>
+                          <div class="input-group input-group-flat">
+                              <input type="password" class="form-control" id="password" name="password" placeholder="Password" maxlength="20" required value="{{ form.data.password }}">
+                          </div>
+                      </div>
+                      <div class="col-6">
+                          <label class="form-label">Confirm Password</label>
+                          <div class="input-group input-group-flat">
+                              <input type="password" class="form-control" id="cnfm_password" name="cnfm_password" placeholder="Confirm Password" maxlength="20" required value="{{ form.data.cnfm_password }}">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-footer">
+                      <button type="submit" class="btn btn-purple w-100" id="signup-submit">Create Account</button>
+                  </div>
+              </div>
+          </form>
+          <div class="text-center text-light mt-3">
+              Already have an account? <a href="{% url 'login' %}" tabindex="-1" class="text-purple">Log In</a>
+          </div>
+        </div>
+        <!-- Libs JS -->
+        <!-- Tabler Core -->
+        <script src="{% static 'assets/django-essentials/validation.js' %}"></script>
+        <script src="{% static 'assets/django-essentials/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/tabler.min.js' %}" defer></script>
+        <script src="{% static 'assets/js/demo.min.js' %}" defer></script>
+    </body>
+</html>
