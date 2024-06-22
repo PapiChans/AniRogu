@@ -43,6 +43,12 @@
                           {% endfor %}
                       </ul>
                   </div>
+                    <script>
+                    // JavaScript to assign the URL /signup to the current page
+                    if (window.location.pathname !== '/signup') {
+                        window.history.replaceState({}, '', '/signup' + window.location.search + window.location.hash);
+                    }
+                    </script>
                   {% endif %}
                   <div class="row">
                       <div class="mb-3 col-6">

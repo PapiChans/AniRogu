@@ -1,0 +1,14 @@
+{% load static %}
+{% include "partials/opening.html" %}
+{% block customcss %} <!--imported css-->
+{% endblock %}
+{% include "partials/header.html" %}
+{% include "partials/navbar.html" %}
+{% include "partials/opencontent.html" %}
+{% block maincontent %} <!--Page Content-->
+{% endblock %}
+{% include "partials/closecontent.html" %}
+{% include "partials/footer.html" %}
+{% block customjs %} <!--imported scripts-->
+{% endblock %}
+{% include "partials/closing.html" %}

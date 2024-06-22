@@ -52,15 +52,12 @@ def backendlogin(request):
                     remaining_seconds = (user.lockout_timestamp - timezone.now()).total_seconds()
                     minutes = int(remaining_seconds // 60)
                     seconds = int(remaining_seconds % 60)
-                    return render(request, 'login.html', {
-                        'form': form,
-                        'sweet_alert': {
-                            'title': 'Error',
-                            'text': f'Account locked due to multiple failed attempts. Please try again in {minutes} minutes and {seconds} seconds.',
-                            'icon': 'error'
-                        }
-                    })
-
+                    request.session['sweet_alert'] = {
+                        'title': 'Account Locked',
+                        'text': f'Account locked due to multiple failed attempts. Please try again in {minutes} minutes and {seconds} seconds.',
+                        'icon': 'error'
+                    }
+                    return redirect('login')  # Redirect to login page
                 # Attempt to authenticate user
                 authenticated_user = authenticate(request, username=username, password=password)
                 if authenticated_user is not None:
@@ -85,32 +82,25 @@ def backendlogin(request):
                         remaining_seconds = (user.lockout_timestamp - timezone.now()).total_seconds()
                         minutes = int(remaining_seconds // 60)
                         seconds = int(remaining_seconds % 60)
-                        return render(request, 'login.html', {
-                            'form': form,
-                            'sweet_alert': {
-                                'title': 'Error',
-                                'text': f'Account locked due to multiple failed attempts. Please try again in {minutes} minutes and {seconds} seconds.',
-                                'icon': 'error'
-                            }
-                        })
-                    
-                    return render(request, 'login.html', {
-                        'form': form,
-                        'sweet_alert': {
-                            'title': 'Error',
+                        request.session['sweet_alert'] = {
+                            'title': 'Account Locked',
+                            'text': f'Account locked due to multiple failed attempts. Please try again in {minutes} minutes and {seconds} seconds.',
+                            'icon': 'error'
+                        }
+                    else:
+                        request.session['sweet_alert'] = {
+                            'title': 'Oops',
                             'text': f'Incorrect Password. Please try again. Attempts remaining: {attempts_remaining}',
                             'icon': 'error'
                         }
-                    })
+                    return redirect('login')  # Redirect to login page
             else:
-                return render(request, 'login.html', {
-                    'form': form,
-                    'sweet_alert': {
-                        'title': 'Error',
-                        'text': 'User does not exist. Please check your credentials.',
-                        'icon': 'error'
-                    }
-                })
+                request.session['sweet_alert'] = {
+                    'title': 'Not Found',
+                    'text': 'User does not exist. Please check your credentials.',
+                    'icon': 'error'
+                }
+                return redirect('login')  # Redirect to login page
         else:
             # Form is not valid, return bad request response
             return HttpResponseBadRequest("Invalid form data")
