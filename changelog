@@ -22,3 +22,8 @@
 - Add New Library: Notyf
 - Add Csrf-Token, Boostrap Validation and Jquery
 - Add Models for User Login
+
+## 0.3.0
+- Date June 22, 2024
+- Add Account Recovery Feature
+- Improved Validation Input

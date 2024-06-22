@@ -5,10 +5,12 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
         <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-        <title>AniRogu | Personal Anime Logs</title>
+        <title>AniRogu | Personal Anime Tracker</title>
         <!-- CSS files -->
         <link href="{% static 'assets/css/tabler.min.css' %}" rel="stylesheet"/>
         <link href="{% static 'assets/css/demo.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'assets/libs/notyf/notyf.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'assets/libs/sweetalert/sweetalert2.all.min.css' %}" rel="stylesheet"/>
         <link rel="icon" href="{% static 'assets/images/logo.png' %}" type="image/x-icon">
         <style>
           @import url('https://rsms.me/inter/inter.css');
@@ -109,6 +111,11 @@
             </div>
           </div>
     </body>
+    <script src="{% static 'assets/django-essentials/validation.js' %}"></script>
+    <script src="{% static 'assets/libs/notyf/notyf.min.js' %}"></script>
+    <script src="{% static 'assets/libs/sweetalert/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'assets/django-essentials/jquery.min.js' %}"></script>
     <script src="{% static 'assets/js/tabler.min.js' %}" defer></script>
     <script src="{% static 'assets/js/demo.min.js' %}" defer></script>
+    <script src="{% static 'assets/js/page/library-init.js' %}"></script>
 </html>

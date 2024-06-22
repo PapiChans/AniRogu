@@ -31,3 +31,16 @@ class LoginForm(forms.Form):
         cleaned_data = super().clean()
         # You can perform additional validation here if needed
         return cleaned_data
+    
+class ForgotPasswordForm(forms.Form):
+    username = forms.EmailField(
+        label='Email Address',
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter Your Email Address'}),
+        required=True
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        # Additional validation can be performed here if needed
+        return cleaned_data
+    
