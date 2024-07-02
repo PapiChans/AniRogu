@@ -66,7 +66,7 @@ def backendlogin(request):
                     user.save()
                     login(request, authenticated_user)
                     # Redirect to a success page
-                    return redirect('user/dashboard')
+                    return redirect('user/home')
                 else:
                     # Increment failed login attempts
                     user.failed_login_attempts += 1

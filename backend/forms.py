@@ -43,4 +43,20 @@ class ForgotPasswordForm(forms.Form):
         cleaned_data = super().clean()
         # Additional validation can be performed here if needed
         return cleaned_data
+
+class SearchAnimeForm(forms.Form):
+    animekeyword = forms.CharField(
+        label='Anime Keywords',
+        max_length=50,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Anime Keywords'
+        }),
+        required=True
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        # Additional validation can be performed here if needed
+        return cleaned_data
     

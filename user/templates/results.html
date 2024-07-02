@@ -1,0 +1,50 @@
+{% extends "partials/main.html" %}
+{% load static %}
+{% block customcss %}
+
+{% endblock %}
+{% block maincontent %}
+<h1>Search Results for: {{keyword}}</h1>
+<form id="SearchAnimeForm" class="needs-validation" action="{% url 'backend/SearchAnime' %}" method="POST" novalidate>{% csrf_token %}
+    <div class="row g-2">
+        <div class="col-8">
+        <input type="text" id="animekeyword" name="animekeyword" class="form-control" maxlength="50" placeholder="Enter Anime Keywords">
+        </div>
+        <div class="col-auto">
+            <button type="submit" id="search-submit" class="btn btn-purple">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
+                Search
+            </button>
+        </div>
+    </div>
+</form>
+{% include "searchtags/dropdowns.html" %}
+{% if data %}
+<div class="card-deck row">
+    {% for anime in data %}
+        <div class="col-4 mt-4">
+            <div class="card card-link card-link-pop">
+            {% with genre_names=anime.genres|join:", "|lower %}
+                {% if "hentai" in genre_names %}
+                    <div class="ribbon bg-purple">Hentai</div>
+                {% endif %}
+            {% endwith %}
+            <div class="img-responsive card-img-top" style="background-image: url({{ anime.images.webp.large_image_url }}); height: 300px; background-size: cover; background-position: center;;"></div>
+            <div class="card-body" style="height: 200%;";>
+                <h4>{{anime.title}}</h4>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+<h1 class="text-center mt-5">No Anime Found</h1>
+{% endif %}
+{% endblock %}
+{% block customjs %}
+<script>
+    {% if error %}
+        notyf.error({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+</script>
+{% endblock %}

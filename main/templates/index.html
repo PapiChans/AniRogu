@@ -1,1 +1,20 @@
-Hellow world
+{% load static %}
+<link href="{% static 'assets/css/tabler.min.css' %}" rel="stylesheet"/>
+<body data-bs-theme="dark" class=" d-flex flex-column">
+<div class="page page-center">
+    <div class="container container-tight py-4">
+      <div class="text-center mb-3">
+        <a href="{% url 'index' %}" class="navbar-brand">
+          <img src="{% static 'assets/images/logotext.png' %}" width="150" height="60" alt="AniRogu" class="navbar-brand" >
+        </a>
+      </div>
+      <div class="card card-md">
+        <div class="card-body">
+          <h2 class="h2 text-center mb-4 text-purple">Welcome to AniRogu and There's nothing here</h2>
+          <a href="{% url 'login' %}" class="text-white"><button class="btn btn-purple w-100">Direct to Log in</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>

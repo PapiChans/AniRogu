@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     # Homepage
-    path('dashboard', views.userDashboard, name='user/dashboard'),
+    path('home', views.userHome, name='user/home'),
+    path('browse/q=<str:keyword>', views.userAnimeBrowse, name='user/browse'),
 ]

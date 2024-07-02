@@ -32,3 +32,10 @@
 - Date June 22, 2024
 - Improved URL for Backend
 - Initiate HTML Extending for User Pages
+
+## 0.4.0
+- Date July 2, 2024
+- Integrated with Jikan API Public Anime API
+- Initiate Basic Search Engine for Anime
+- Add Simple Index.html Page
+- Add Search Engine Page
