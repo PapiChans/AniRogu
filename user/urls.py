@@ -5,5 +5,6 @@ from . import views
 urlpatterns = [
     # Homepage
     path('home', views.userHome, name='user/home'),
-    path('browse/q=<str:keyword>', views.userAnimeBrowse, name='user/browse'),
+    path('browse/q=<str:keyword>/page=<int:page>', views.userAnimeBrowse, name='user/browse'),
+    path('browse/genres=<str:genres>/page=<int:page>', views.userAnimeGenre, name='user/browse/genre'),
 ]

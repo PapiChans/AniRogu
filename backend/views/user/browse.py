@@ -17,7 +17,8 @@ def backendSearchAnime(request):
             form = SearchAnimeForm(request.POST)
             if form.is_valid():
                 keyword = form.cleaned_data['animekeyword']
-                return redirect(f'/user/browse/q={keyword}')
+                page = 1
+                return redirect(f'/user/browse/q={keyword}/page={page}')
             else:
                 form = SearchAnimeForm()
 

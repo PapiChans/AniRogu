@@ -4,7 +4,7 @@
 
 {% endblock %}
 {% block maincontent %}
-<h1>Search Results for: {{keyword}}</h1>
+<h1>Genre: {{genres}}</h1>
 <form id="SearchAnimeForm" class="needs-validation" action="{% url 'backend/SearchAnime' %}" method="POST" novalidate>{% csrf_token %}
     <div class="row g-2">
         <div class="col-8">
@@ -47,7 +47,7 @@
 <ul class="pagination pagination-lg justify-content-center mt-2">
     {% if current_page > 1 %}
         <li class="page-item">
-            <a class="page-link text-purple" href="{% url 'user/browse' keyword=keyword page=current_page|add:"-1" %}">prev</a>
+            <a class="page-link text-purple" href="{% url 'user/browse/genre' genres=genres page=current_page|add:"-1" %}">prev</a>
         </li>
     {% else %}
         <li class="page-item disabled">
@@ -57,7 +57,7 @@
 
     {% if current_page > 4 %}
         <li class="page-item">
-            <a class="page-link" href="{% url 'user/browse' keyword=keyword page=1 %}">1</a>
+            <a class="page-link" href="{% url 'user/browse/genre' genres=genres page=1 %}">1</a>
         </li>
         <li class="page-item disabled">
             <span class="page-link">...</span>
@@ -67,7 +67,7 @@
     {% for num in page_range %}
         {% if num >= current_page|add:"-3" and num <= current_page|add:"3" %}
             <li class="page-item {% if num == current_page %}active{% endif %}">
-                <a class="page-link {% if num == current_page %}bg-purple{% endif %}" href="{% url 'user/browse' keyword=keyword page=num %}">{{ num }}</a>
+                <a class="page-link {% if num == current_page %}bg-purple{% endif %}" href="{% url 'user/browse/genre' genres=genres page=num %}">{{ num }}</a>
             </li>
         {% endif %}
         {% if num == current_page|add:"3" and current_page < last_visible_page|add:"-3" %}
@@ -79,13 +79,13 @@
 
     {% if current_page < last_visible_page|add:"-3" %}
         <li class="page-item">
-            <a class="page-link" href="{% url 'user/browse' keyword=keyword page=last_visible_page %}">{{ last_visible_page }}</a>
+            <a class="page-link" href="{% url 'user/browse/genre' genres=genres page=last_visible_page %}">{{ last_visible_page }}</a>
         </li>
     {% endif %}
 
     {% if has_next_page %}
         <li class="page-item">
-            <a class="page-link text-purple" href="{% url 'user/browse' keyword=keyword page=current_page|add:"1" %}">next</a>
+            <a class="page-link text-purple" href="{% url 'user/browse/genre' genres=genres page=current_page|add:"1" %}">next</a>
         </li>
     {% else %}
         <li class="page-item disabled">
@@ -95,12 +95,9 @@
 </ul>
 
 
-
-
 {% else %}
 <h1 class="text-center mt-5">No Anime Found</h1>
 {% endif %}
-
 {% endblock %}
 {% block customjs %}
 <script>
