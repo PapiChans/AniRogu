@@ -1,0 +1,110 @@
+{% extends "partials/main.html" %}
+{% load static %}
+{% block customcss %}
+
+{% endblock %}
+{% block maincontent %}
+<h1>Upcoming Anime in this Season</h1>
+<form id="SearchAnimeForm" class="needs-validation" action="{% url 'backend/SearchAnime' %}" method="POST" novalidate>{% csrf_token %}
+    <div class="row g-2">
+        <div class="col-8">
+        <input type="text" id="animekeyword" name="animekeyword" class="form-control" maxlength="50" placeholder="Enter Anime Keywords">
+        </div>
+        <div class="col-auto">
+            <button type="submit" id="search-submit" class="btn btn-purple">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
+                Search
+            </button>
+        </div>
+    </div>
+</form>
+{% include "searchtags/dropdowns.html" %}
+{% if data %}
+<div class="card-deck row">
+    {% for anime in data %}
+        <div class="col-sm-4 col-md-4 col-lg-2 mt-4">
+            <div class="card card-link card-link-pop">
+                {% with genre_names=anime.genres|join:", "|lower %}
+                    {% if "hentai" in genre_names %}
+                        <div class="ribbon bg-purple">Hentai</div>
+                    {% endif %}
+                {% endwith %}
+                <div class="img-responsive card-img-top" style="background-image: url({{ anime.images.webp.large_image_url }}); height: 300px; background-size: cover; background-position: center;"></div>
+                <div class="card-body" style="height: 100%;">
+                    <h4>
+                        {% if anime.title_english %}
+                            {{ anime.title_english }}
+                        {% else %}
+                            {{ anime.title }}
+                        {% endif %}
+                    </h4>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<ul class="pagination pagination-lg justify-content-center mt-2">
+    {% if current_page > 1 %}
+        <li class="page-item">
+            <a class="page-link text-purple" href="{% url 'user/browse/upcoming' page=current_page|add:"-1" %}">prev</a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <span class="page-link text-purple">prev</span>
+        </li>
+    {% endif %}
+
+    {% if current_page > 4 %}
+        <li class="page-item">
+            <a class="page-link" href="{% url 'user/browse/upcoming' page=1 %}">1</a>
+        </li>
+        <li class="page-item disabled">
+            <span class="page-link">...</span>
+        </li>
+    {% endif %}
+
+    {% for num in page_range %}
+        {% if num >= current_page|add:"-3" and num <= current_page|add:"3" %}
+            <li class="page-item {% if num == current_page %}active{% endif %}">
+                <a class="page-link {% if num == current_page %}bg-purple{% endif %}" href="{% url 'user/browse/upcoming' page=num %}">{{ num }}</a>
+            </li>
+        {% endif %}
+        {% if num == current_page|add:"3" and current_page < last_visible_page|add:"-3" %}
+            <li class="page-item disabled">
+                <span class="page-link">...</span>
+            </li>
+        {% endif %}
+    {% endfor %}
+
+    {% if current_page < last_visible_page|add:"-3" %}
+        <li class="page-item">
+            <a class="page-link" href="{% url 'user/browse/upcoming' page=last_visible_page %}">{{ last_visible_page }}</a>
+        </li>
+    {% endif %}
+
+    {% if has_next_page %}
+        <li class="page-item">
+            <a class="page-link text-purple" href="{% url 'user/browse/upcoming' page=current_page|add:"1" %}">next</a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <span class="page-link text-purple">next</span>
+        </li>
+    {% endif %}
+</ul>
+
+
+
+
+{% else %}
+<h1 class="text-center mt-5">No Anime Found</h1>
+{% endif %}
+{% endblock %}
+{% block customjs %}
+<script>
+    {% if error %}
+        notyf.error({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+</script>
+{% endblock %}

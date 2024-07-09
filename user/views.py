@@ -109,3 +109,46 @@ def userAnimeGenre(request, genres, page):
             error = True
             message = "Failed to fetch data from external API."
             return render(request, 'genre.html', {'message': message, 'error': error})
+        
+def userAnimeUpcoming(request, page):
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        # Genre URL
+        genre_url = f'https://api.jikan.moe/v4/genres/anime'
+        genre_response = requests.get(genre_url)
+
+        api_url = f'https://api.jikan.moe/v4/seasons/upcoming?page={page}'
+        response = requests.get(api_url)
+
+        if genre_response.status_code == 200 and response.status_code == 200:
+            #Genre
+            genre_list = genre_response.json().get('data',[])
+
+            data = response.json().get('data', [])
+            pagination = response.json().get('pagination', {})
+
+            current_page = pagination.get('current_page', 1)
+            last_visible_page = pagination.get('last_visible_page', 1)
+            has_next_page = pagination.get('has_next_page', False)
+
+            # Calculate the range of pages to display
+            page_range = range(1, last_visible_page + 1)
+
+            context = {
+                'page': page,
+                'genre': genre_list,
+
+                # For Pagination
+                'data': data,
+                'current_page': current_page,
+                'last_visible_page': last_visible_page,
+                'has_next_page': has_next_page,
+                'page_range': page_range,
+            }
+            return render(request, 'upcoming.html', context)
+        else:
+            # Handle API request error
+            error = True
+            message = "Failed to fetch data from external API."
+            return render(request, 'upcoming.html', {'message': message, 'error': error})

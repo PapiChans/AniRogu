@@ -1,20 +1,38 @@
 {% load static %}
-<link href="{% static 'assets/css/tabler.min.css' %}" rel="stylesheet"/>
-<body data-bs-theme="dark" class=" d-flex flex-column">
-<div class="page page-center">
-    <div class="container container-tight py-4">
-      <div class="text-center mb-3">
-        <a href="{% url 'index' %}" class="navbar-brand">
-          <img src="{% static 'assets/images/logotext.png' %}" width="150" height="60" alt="AniRogu" class="navbar-brand" >
-        </a>
-      </div>
-      <div class="card card-md">
-        <div class="card-body">
-          <h2 class="h2 text-center mb-4 text-purple">Welcome to AniRogu and There's nothing here</h2>
-          <a href="{% url 'login' %}" class="text-white"><button class="btn btn-purple w-100">Direct to Log in</button></a>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <title>AniRogu</title>
+        <link href="{% static 'assets/css/tabler.min.css' %}" rel="stylesheet"/>
+        <link rel="icon" href="/static/assets/images/logo.png" type="image/x-icon">
+        <style>
+          @import url('https://rsms.me/inter/inter.css');
+          :root {
+              --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+          }
+          body {
+              font-feature-settings: "cv03", "cv04", "cv11";
+          }
+        </style>
+    </head>
+  <body data-bs-theme="dark" class=" d-flex flex-column">
+  <div class="page page-center">
+      <div class="container container-tight py-4">
+        <div class="text-center mb-3">
+          <a href="{% url 'index' %}" class="navbar-brand">
+            <img src="{% static 'assets/images/logotext.png' %}" width="150" height="60" alt="AniRogu" class="navbar-brand" >
+          </a>
+        </div>
+        <div class="card card-md">
+          <div class="card-body">
+            <h2 class="h2 text-center mb-4 text-purple">Welcome to AniRogu and There's nothing here</h2>
+            <a href="{% url 'login' %}" class="text-white"><button class="btn btn-purple w-100">Direct to Log in</button></a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-</body>
+  </body>
+</html>
