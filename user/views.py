@@ -152,3 +152,46 @@ def userAnimeUpcoming(request, page):
             error = True
             message = "Failed to fetch data from external API."
             return render(request, 'upcoming.html', {'message': message, 'error': error})
+        
+def userAnimeInfo(request, id):
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        api_url = f'https://api.jikan.moe/v4/anime/{id}/full'
+        response = requests.get(api_url)
+
+        # Relations
+        r_api_url = f'https://api.jikan.moe/v4/anime/{id}/relations'
+        r_response = requests.get(r_api_url)
+        if response.status_code == 200 and r_response.status_code == 200:
+            data = response.json().get('data', [])
+            r_data = r_response.json().get('data', [])
+
+            # Prepare a list to store fetched relation large_image_urls
+            relation_details = []
+
+            # Iterate through relations to fetch additional data
+            for relation in r_data:
+                for entry in relation.get('entry', []):
+                    mal_id = entry.get('mal_id')
+                    anime_api_url = f'https://api.jikan.moe/v4/anime/{mal_id}'
+                    anime_response = requests.get(anime_api_url)
+
+                    if anime_response.status_code == 200:
+                        anime_data = anime_response.json().get('data', {})
+                        large_image_url = anime_data.get('images', {}).get('webp', {}).get('large_image_url', '')
+
+                        # Append fetched data to relation_details list
+                        relation_details.append({
+                            'large_image_url': large_image_url,
+                            'relation': relation.get('relation'),
+                            'entry_name': entry.get('name'),
+                            'entry_url': entry.get('url')
+                        })
+
+            return render(request, 'animeinfo.html', {'data': data, 'r_data': r_data, 'relation_details': relation_details,})
+        else:
+            # Handle API request error
+            error = True
+            message = "Failed to fetch data from external API."
+            return render(request, 'home.html', {'message': message, 'error': error})

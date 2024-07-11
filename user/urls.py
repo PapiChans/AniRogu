@@ -7,5 +7,6 @@ urlpatterns = [
     path('home', views.userHome, name='user/home'),
     path('browse/q=<str:keyword>/page=<int:page>', views.userAnimeBrowse, name='user/browse'),
     path('browse/genres=<str:genres>/page=<int:page>', views.userAnimeGenre, name='user/browse/genre'),
-    path('browse/upcoming/page=<int:page>', views.userAnimeUpcoming, name='user/browse/upcoming')
+    path('browse/upcoming/page=<int:page>', views.userAnimeUpcoming, name='user/browse/upcoming'),
+    path('anime/id=<str:id>', views.userAnimeInfo, name='user/anime/id'),
 ]

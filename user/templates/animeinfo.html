@@ -1,0 +1,117 @@
+{% extends "partials/main.html" %}
+{% load static %}
+{% block customcss %}
+
+{% endblock %}
+{% block maincontent %}
+<h1>Anime Information</h1>
+{% if data %}
+<div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-4 text-center">
+        <img src="{{ data.images.webp.large_image_url }}" class="img-fluid" alt="Anime Image">
+    </div>
+    <div class="col-12 col-lg-8">
+        <h1>{{data.title}}</h1>
+        <h3>Other titles:
+            <span class="text-muted">
+            {{data.title}} |
+            {{data.title_english}} |
+            {{data.title_japanese}} |
+            </span>
+        </h3>
+        <h3>Type:
+            <span class="text-muted">
+            {{data.type}}
+            </span>
+        </h3>
+        <h3>Source:
+            <span class="text-muted">
+            {{data.source}}
+            </span>
+        </h3>
+        <h3>Status:
+            <span class="text-muted">
+            {{data.status}}
+            </span>
+        </h3>
+        <h3>Aired:
+            <span class="text-muted">
+                {{ data.aired.string }}
+            </span>
+        </h3>
+        <h3>Rating:
+            <span class="text-muted">
+            {{data.rating}}
+            </span>
+        </h3>
+        <h3>Season:
+            <span class="text-muted text-uppercase">
+            {{data.season}}
+            </span>
+        </h3>
+        <h3>Year:
+            <span class="text-muted">
+            {{data.year}}
+            </span>
+        </h3>
+        <button class="btn btn-outline-purple">
+            Add to Watchlist
+        </button>
+        <button class="btn btn-purple">
+            Remove to Watchlist
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        <h3 class="mt-3">Synopsis:
+            <span class="text-muted">
+            {{data.synopsis}}
+            </span>
+        </h3>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <h1 class="mt-3">Relations</h1>
+        <div class="scrollable-div" style="max-height: 270px; overflow-y: auto;">
+            {% if r_data %}
+                {% for relations in r_data %}
+                    {% for entry in relations.entry %}
+                    <a href="{% url 'user/anime/id' id=entry.mal_id %}" class="card-link">
+                    {% endfor %}
+                    <div class="card card-link-pop mb-2">
+                        <div class="row row-0">
+                            <div class="col-2">
+                                {% for entry in relations.entry %}
+                                    {% for detail in relation_details %}
+                                        {% if entry.name == detail.entry_name %}
+                                            <img src="{{ detail.large_image_url }}" class="w-100 h-100 object-cover card-img-start" alt="Anime Image">
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                            <div class="col">
+                                <div class="card-body">
+                                    <h3 class="card-title">{{ relations.relation }}</h3>
+                                    {% for entry in relations.entry %}
+                                    <p class="text-secondary">{{ entry.name }}</p>
+                                    {% endfor%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}
+{% block customjs %}
+<script>
+    {% if error %}
+        notyf.error({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+</script>
+{% endblock %}
