@@ -1,0 +1,72 @@
+{% extends "partials/main.html" %}
+{% load static %}
+{% block customcss %}
+
+{% endblock %}
+{% block maincontent %}
+<h1>About AniRogu</h1>
+<div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-9">
+        <div class="card">
+            <div class="card-body markdown">
+                <p>AniRogu is a mixed word of Anime and Log, when it translates to Japanese,
+                 the word "Log" turns into "Rogu (ログ)" That's why this Web Application can
+                 tracks the Episode of the Anime that you watching and also it can be categorized
+                 and sorted.
+                </p>
+                <p>This Web Application is for Personal Use and to purpose to have my own tracker for
+                    myself also to enhance my programming skills and create this as a Unique Project
+                    on my own.
+                </p>
+                <h2>Features</h2>
+                <p>The features of this Web Application is simple to create a personal anime log in
+                    your own. It includes the following:
+                </p>
+                <ul>
+                    <li>Login</li>
+                    <li>Sign Up</li>
+                    <li>Account Recovery</li>
+                    <li>Anime Search Engine</li>
+                </ul>
+                <h2>Account Recovery</h2>
+                <p>It uses Simple Mail Transfer Protocol (SMTP) for Gmail. This requires to enter their
+                    own E-mail address and the Email Host Password in order to get the Account Recovery
+                    work. In the Settings.py there has already setup the SMTP and just put an E-Mail
+                    address and Host Password to setup Account Recovery Features.
+                </p>
+                <h2>Integration</h2>
+                <p>To make the Search Engine works, this uses the Public API called "Jikan API" where it's
+                    unofficial API for MyAnimeList Website, Special Credits to them because I didn't make it
+                    if I didn't discover their API.
+                </p>
+                <h2>Dependencies</h2>
+                <p>The Python Dependencies that I used in this application are the following:</p>
+                <ul>
+                    <li>Django</li>
+                    <li>DjangoRestFramework</li>
+                    <li>Psycopg2</li>
+                    <li>Bcrypt</li>
+                    <li>WhiteNoise</li>
+                </ul>
+                <h2>Libraries</h2>
+                <p>The Libraries that I used in this application are the following:</p>
+                <ul>
+                    <li>Tabler Template</li>
+                    <li>JQuery</li>
+                    <li>Bootstrap</li>
+                    <li>Sweetalert</li>
+                    <li>Notyf</li>
+                </ul>
+                <p>Last modified: {{ last_modified_time }} PHT</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block customjs %}
+<script>
+    {% if error %}
+        notyf.error({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+</script>
+{% endblock %}

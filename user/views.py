@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
-import requests
+import requests, os
+from datetime import datetime
 
 # Create your views here.
 def userHome(request):
@@ -195,3 +196,17 @@ def userAnimeInfo(request, id):
             error = True
             message = "Failed to fetch data from external API."
             return render(request, 'home.html', {'message': message, 'error': error})
+        
+def userAbout(request):
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        template_path = os.path.join(settings.BASE_DIR, 'user/templates/about.html')
+        modified_time = os.path.getmtime(template_path)
+        modified_time = datetime.fromtimestamp(modified_time)
+        formatted_date = modified_time.strftime('%B %d, %Y - %I:%M %p')
+        context = {
+            'last_modified_time': formatted_date,
+        }
+        print(context)
+        return render(request, 'about.html', context)

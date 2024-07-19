@@ -31,7 +31,7 @@
                         {% endif %}
                     {% endwith %}
                     <div class="img-responsive card-img-top" style="background-image: url({{ anime.images.webp.large_image_url }}); height: 300px; background-size: cover; background-position: center;"></div>
-                    <div class="card-body" style="height: 100%;">
+                    <div class="card-body">
                         <h4>
                             {% if anime.title_english %}
                                 {{ anime.title_english }}
@@ -95,9 +95,6 @@
         </li>
     {% endif %}
 </ul>
-
-
-
 
 {% else %}
 <h1 class="text-center mt-5">No Anime Found</h1>

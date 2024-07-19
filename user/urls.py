@@ -9,4 +9,5 @@ urlpatterns = [
     path('browse/genres=<str:genres>/page=<int:page>', views.userAnimeGenre, name='user/browse/genre'),
     path('browse/upcoming/page=<int:page>', views.userAnimeUpcoming, name='user/browse/upcoming'),
     path('anime/id=<str:id>', views.userAnimeInfo, name='user/anime/id'),
+    path('about', views.userAbout, name='user/about'),
 ]
