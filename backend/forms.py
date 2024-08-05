@@ -60,3 +60,18 @@ class SearchAnimeForm(forms.Form):
         # Additional validation can be performed here if needed
         return cleaned_data
     
+class ChangeProfileForm(forms.Form):
+    new_profile_name = forms.CharField(
+        label='New Profile Name',
+        max_length=20,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Set Profile Name'
+        }),
+        required=True
+    )
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        # Additional validation can be performed here if needed
+        return cleaned_data

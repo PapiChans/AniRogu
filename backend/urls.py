@@ -11,4 +11,7 @@ urlpatterns = [
 
     # Browse Anime
     path('backend/SearchAnime', views.backendSearchAnime, name="backend/SearchAnime"),
+
+    # Profile
+    path('backend/ChangeProfile', views.backendChangeProfile, name='backend/ChangeProfile'),
 ]

@@ -1,0 +1,68 @@
+{% extends "partials/main.html" %}
+{% load static %}
+{% block customcss %}
+
+{% endblock %}
+{% block maincontent %}
+<div class="card">
+    <div class="container">
+        <div class="card-body">
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <h2>Change Profile</h2>
+                    <form id="ChangeProfileForm" class="needs-validation" action="{% url 'backend/ChangeProfile' %}" method="POST" novalidate>{% csrf_token %}
+                        <div class="mb-3">
+                          <label class="form-label">Profile Name</label>
+                          <input type="text" id="new_profile_name" name="new_profile_name" class="form-control" maxlength="20" placeholder="Set Profile Name" value='{{ profile_name }}' required>
+                        </div>
+                        <div class="form-footer">
+                          <button type="submit" id="changeprofile-submit" class="btn btn-purple w-100">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <h2>Change Password</h2>
+                    <form id="ChangePasswordForm" class="needs-validation" action="#" method="POST" novalidate>
+                      <div class="mb-3">
+                        <label class="form-label">Old Password</label>
+                        <input type="password" id="old_password" name="old_password" class="form-control" placeholder="Enter your old Password" required>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <div class="input-group input-group-flat">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" maxlength="20" required value="{{ form.data.password }}">
+                        </div>
+                        <p class="text-purple">Minimum of 8 Characters long.</p>
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Confirm Password</label>
+                          <div class="input-group input-group-flat">
+                              <input type="password" class="form-control" id="cnfm_password" name="cnfm_password" placeholder="Confirm Password" maxlength="20" required value="{{ form.data.cnfm_password }}">
+                          </div>
+                      </div>
+                      <div class="form-footer">
+                        <button type="submit" id="changepassword-submit" class="btn btn-purple w-100">Set New Password</button>
+                      </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block customjs %}
+<script>
+    {% if error %}
+        notyf.error({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+    {% if success %}
+        notyf.success({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+</script>
+<script>
+  // JavaScript to assign the URL /user/profile to the current page
+  if (window.location.pathname !== '/user/profile') {
+      window.history.replaceState({}, '', '/user/profile' + window.location.search + window.location.hash);
+  }
+</script>
+{% endblock %}

@@ -22,7 +22,7 @@
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <a href="./profile.html" class="dropdown-item">Profile</a>
+                  <a href="{% url 'user/profile' %}" class="dropdown-item">Profile</a>
                   <a href="{% url 'auth/logout' %}" class="dropdown-item">Logout</a>
                   {% comment %} <div class="dropdown-divider"></div> {% endcomment %}
                 </div>

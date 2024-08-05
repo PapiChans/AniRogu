@@ -2,6 +2,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 import requests, os
 from datetime import datetime
+from backend.models import *
 
 # Create your views here.
 def userHome(request):
@@ -210,3 +211,13 @@ def userAbout(request):
         }
         print(context)
         return render(request, 'about.html', context)
+
+def userProfile(request):
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        user = User.objects.get(user_Id = request.user.user_Id)
+        context = {
+            'profile_name': user.profile_name,
+        }
+        return render(request, 'profile.html', context)

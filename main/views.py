@@ -41,4 +41,4 @@ def userForgot(request):
             return redirect('login')  # Replace 'login' with your actual login URL
         else:
             # Redirect to forgot password page
-            return redirect('forgot_password')
+            return render(request, 'forgot-password.html')

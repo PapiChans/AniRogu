@@ -62,3 +62,10 @@
 - Adjust Style in Card in Result Page
 - Corrected Icons for the Navigation Bar
 - Add About Page
+
+## 0.9.0
+- Date August 5, 2024
+- Layout Profile.html
+- Add Change Profile Name Feature
+- Modify Urls and Views for Pages in User
+- BUG FIX: Forgot Password Page not found on views
