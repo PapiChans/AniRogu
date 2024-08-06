@@ -69,3 +69,8 @@
 - Add Change Profile Name Feature
 - Modify Urls and Views for Pages in User
 - BUG FIX: Forgot Password Page not found on views
+
+## 0.10.0
+- Date August 6, 2024
+- NEW Feature: Change Password
+- Update: About.html

@@ -14,4 +14,5 @@ urlpatterns = [
 
     # Profile
     path('backend/ChangeProfile', views.backendChangeProfile, name='backend/ChangeProfile'),
+    path('backend/ChangePassword', views.backendChangePassword, name='backend/ChangePassword'),
 ]

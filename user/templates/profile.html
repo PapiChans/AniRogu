@@ -22,22 +22,22 @@
                 </div>
                 <div class="col-6">
                     <h2>Change Password</h2>
-                    <form id="ChangePasswordForm" class="needs-validation" action="#" method="POST" novalidate>
+                    <form id="ChangePasswordForm" class="needs-validation" action="{% url 'backend/ChangePassword' %}" method="POST" novalidate>{% csrf_token %}
                       <div class="mb-3">
                         <label class="form-label">Old Password</label>
-                        <input type="password" id="old_password" name="old_password" class="form-control" placeholder="Enter your old Password" required>
+                        <input type="password" id="old_password" name="old_password" class="form-control" minlength="8" maxlength="20" placeholder="Enter your old Password" required>
                       </div>
                       <div class="mb-3">
                         <label class="form-label">Password</label>
                         <div class="input-group input-group-flat">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" maxlength="20" required value="{{ form.data.password }}">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" minlength="8" maxlength="20" required>
                         </div>
                         <p class="text-purple">Minimum of 8 Characters long.</p>
                       </div>
                       <div class="mb-3">
                           <label class="form-label">Confirm Password</label>
                           <div class="input-group input-group-flat">
-                              <input type="password" class="form-control" id="cnfm_password" name="cnfm_password" placeholder="Confirm Password" maxlength="20" required value="{{ form.data.cnfm_password }}">
+                              <input type="password" class="form-control" id="cnfm_password" name="cnfm_password" placeholder="Confirm Password" minlength="8" maxlength="20" required>
                           </div>
                       </div>
                       <div class="form-footer">

@@ -75,3 +75,12 @@ class ChangeProfileForm(forms.Form):
         cleaned_data = super().clean()
         # Additional validation can be performed here if needed
         return cleaned_data
+
+class ChangePasswordForm(forms.Form):
+    old_password = forms.CharField(widget=forms.PasswordInput, label='Old Password', required=True)
+    password = forms.CharField(widget=forms.PasswordInput, label='Password', required=True)
+    cnfm_password = forms.CharField(widget=forms.PasswordInput, label='Confirm Password', required=True)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
