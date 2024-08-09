@@ -3,13 +3,13 @@ from django.shortcuts import render, redirect
 
 def index(request):
     if not request.user.is_anonymous:
-        return redirect('user/dashboard')
+        return redirect('user/home')
     else:
         return render(request, 'index.html')
 
 def userLogin(request):
     if not request.user.is_anonymous:
-        return redirect('user/dashboard')
+        return redirect('user/home')
     else:
         forgot = request.session.pop('forgot', False) # For Forgot Password Page
         message = request.session.pop('message', '') # For Forgot Password Page
@@ -25,13 +25,13 @@ def userLogin(request):
 
 def userSignup(request):
     if not request.user.is_anonymous:
-        return redirect('user/dashboard')
+        return redirect('user/home')
     else:
         return render(request, 'signup.html')
     
 def userForgot(request):
     if not request.user.is_anonymous:
-        return redirect('user/dashboard')
+        return redirect('user/home')
     else:
         if not settings.EMAIL_HOST_USER or not settings.EMAIL_HOST_PASSWORD:
             message = "Temporary service not available."

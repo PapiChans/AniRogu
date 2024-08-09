@@ -54,12 +54,15 @@
             {{data.year}}
             </span>
         </h3>
-        <button class="btn btn-outline-purple">
-            Add to Watchlist
-        </button>
-        <button class="btn btn-purple">
-            Remove to Watchlist
-        </button>
+        {% if not anime_added %}
+            <button class="btn btn-outline-purple" id="anime_Add" onclick="addAnimeClick()">
+                Add to Watchlist
+            </button>
+        {% else %}
+            <button class="btn btn-purple" id="anime_Remove" onclick="removeAnimeClick()">
+                Remove from Watchlist
+            </button>
+        {% endif %}
     </div>
 </div>
 <div class="row">
@@ -110,8 +113,16 @@
 {% endblock %}
 {% block customjs %}
 <script>
-    {% if error %}
+    {% if status == 'error' %}
         notyf.error({message: "{{ message }}", background: 'violet'});
     {% endif %}
+    {% if status == 'success' %}
+        notyf.success({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+    const anime_Number = "{{id}}"
+    const anime_Name = "{{data.title}}"
+    const anime_Picture = "{{data.images.webp.large_image_url}}"
+    window.history.replaceState({}, '', `/user/anime/id=${anime_Number}`);
 </script>
+<script src="{% static 'assets/js/page/animeinfo.js' %}"></script>
 {% endblock %}

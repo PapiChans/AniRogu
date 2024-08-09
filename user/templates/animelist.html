@@ -1,0 +1,18 @@
+{% extends "partials/main.html" %}
+{% load static %}
+{% block customcss %}
+
+{% endblock %}
+{% block maincontent %}
+<h1>Anime List</h1>
+{% endblock %}
+{% block customjs %}
+<script>
+    {% if error %}
+        notyf.error({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+    {% if success %}
+        notyf.success({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+</script>
+{% endblock %}

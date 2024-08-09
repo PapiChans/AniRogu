@@ -190,8 +190,15 @@ def userAnimeInfo(request, id):
                             'entry_name': entry.get('name'),
                             'entry_url': entry.get('url')
                         })
+                    
+                # Check the Anime if it's already added by the user
+                try:
+                    anime =  Anime.objects.get(user_Id = request.user.user_Id,anime_Number = id)
+                    anime_added = True
+                except Anime.DoesNotExist:
+                    anime_added = False
 
-            return render(request, 'animeinfo.html', {'data': data, 'r_data': r_data, 'relation_details': relation_details,})
+            return render(request, 'animeinfo.html', {'data': data, 'r_data': r_data, 'relation_details': relation_details, 'anime_added': anime_added, 'id': id})
         else:
             # Handle API request error
             error = True
@@ -221,3 +228,9 @@ def userProfile(request):
             'profile_name': user.profile_name,
         }
         return render(request, 'profile.html', context)
+
+def userAnimeList(request):
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        return render(request, 'animelist.html')

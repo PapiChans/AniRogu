@@ -56,8 +56,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Anime(models.Model):
     anime_Id = models.UUIDField(primary_key=True, null=False, default=uuid.uuid4, editable=False)
+    user_Id = models.ForeignKey(User, null=False, editable=False, on_delete=models.RESTRICT, db_column='user_Id')
     anime_Number = models.CharField(max_length=10, null=False)
-    anime_Name = models.CharField(max_length=50, null=False)
+    anime_Name = models.CharField(max_length=100, null=False)
     anime_Picture = models.URLField(null=False)
     anime_Status = models.CharField(max_length=15, null=False)
     class Meta:
@@ -65,7 +66,7 @@ class Anime(models.Model):
 
 class AnimeEpisode(models.Model):
     episode_Id = models.UUIDField(primary_key=True, null=False, default=uuid.uuid4, editable=False)
-    anime_Number = models.ForeignKey(Anime, null=False, editable=False, on_delete=models.RESTRICT, db_column='anime_Number')
+    anime_Id = models.ForeignKey(Anime, null=False, editable=False, on_delete=models.RESTRICT, db_column='anime_Id')
     episode_Number = models.IntegerField(null=False)
     episode_Name = models.CharField(max_length=50, null=False)
     episode_Status = models.CharField(max_length=15, null=False)

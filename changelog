@@ -79,3 +79,13 @@
 - Date August 7, 2024
 - Add Anime Tracking Models
 - Initiating New Models to the database
+
+## 0.11.0
+- Date August 9, 2024
+- New Feature: Add / Remove Anime (Incomplete but Working)
+- Add URL's
+- Adjusted Views from backend and pages
+- Revised Models
+- Add JavaScript for Anime Info
+- Initiating Navbar for Anime List page
+- Update: About.html

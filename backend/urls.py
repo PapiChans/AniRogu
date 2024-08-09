@@ -15,4 +15,8 @@ urlpatterns = [
     # Profile
     path('backend/ChangeProfile', views.backendChangeProfile, name='backend/ChangeProfile'),
     path('backend/ChangePassword', views.backendChangePassword, name='backend/ChangePassword'),
+
+    # Anime List
+    path('backend/AddAnime/', views.backendAddAnime, name='backend/AddAnime'),
+    path('backend/RemoveAnime/', views.backendRemoveAnime, name='backend/RemoveAnime'),
 ]

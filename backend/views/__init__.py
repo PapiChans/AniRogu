@@ -11,3 +11,9 @@ from .auth.profile import *
 # ---------------
 
 from .user.browse import *
+
+# ---------------
+# Anime List for Users
+# ---------------
+
+from .user.anime import *
