@@ -30,6 +30,9 @@ function addAnimeClick(){
         confirmButtonText: "Add on my List"
       }).then((result) => {
         if (result.isConfirmed) {
+
+            notyf.open({message: "Adding Anime, Please Wait...", background: 'violet', duration: 0});
+
             // Convert context object to query string
             const queryString = toQueryString(add_context);
 
@@ -58,6 +61,9 @@ function removeAnimeClick(){
         confirmButtonText: "Add on my List"
       }).then((result) => {
         if (result.isConfirmed) {
+
+            notyf.open({message: "Removing Anime, Please Wait...", background: 'violet', duration: 0});
+
             // Convert context object to query string
             const queryString = toQueryString(add_context);
 

@@ -5,6 +5,80 @@
 {% endblock %}
 {% block maincontent %}
 <h1>Anime List</h1>
+<div class="card">
+    <div class="card-header">
+       <ul class="nav nav-tabs card-header-tabs nav-fill" data-bs-toggle="tabs" role="tablist">
+          <li class="nav-item" role="presentation">
+             <a href="#all" class="nav-link active" data-bs-toggle="tab" aria-selected="true" role="tab">All</a>
+          </li>
+          <li class="nav-item" role="presentation">
+             <a href="#not-started" class="nav-link" data-bs-toggle="tab" aria-selected="false" tabindex="-1" role="tab">Not Started</a>
+          </li>
+          <li class="nav-item" role="presentation">
+             <a href="#in-progress" class="nav-link" data-bs-toggle="tab" aria-selected="false" tabindex="-1" role="tab">In Progress</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a href="#completed" class="nav-link" data-bs-toggle="tab" aria-selected="false" tabindex="-1" role="tab">Completed</a>
+         </li>
+       </ul>
+    </div>
+    <div class="card-body">
+       <div class="tab-content">
+          <div class="tab-pane active show" id="all" role="tabpanel">
+            <div class="row">
+                {% if anime %}
+                    {% for anime in anime %}
+                    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                        <div class="card card-link-pop">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="{{ anime.anime_Picture }}" class="img-fluid" alt="Anime Image">
+                                    </div>
+                                    <div class="col-10">
+                                        <p>{{ anime.anime_Name }}</p>
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <h4>Status:</h4>
+                                            </div>
+                                            <div class="col-auto">
+                                                {% if anime.anime_Status == 'Completed' %}
+                                                <span class="badge bg-success text-purple-fg">{{ anime.anime_Status }}</span>
+                                                {% elif anime.anime_Status == 'Not Started' %}
+                                                <span class="badge bg-gray text-purple-fg">{{ anime.anime_Status }}</span>
+                                                {% elif anime.anime_Status == 'In Progress' %}
+                                                <span class="badge bg-warning text-purple-fg">{{ anime.anime_Status }}</span>
+                                                {% else %}
+                                                <span class="badge bg-danger text-purple-fg">Unknown</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <h2 class="text-center">No Anime Found</h2>
+                {% endif %}
+            </div>
+          </div>
+          <div class="tab-pane" id="not-started" role="tabpanel">
+            <div class="row">
+            </div>
+          </div>
+          <div class="tab-pane" id="in-progress" role="tabpanel">
+            <div class="row">
+            </div>
+          </div>
+          <div class="tab-pane" id="completed" role="tabpanel">
+            <div class="row">
+            </div>
+          </div>
+       </div>
+    </div>
+</div>
 {% endblock %}
 {% block customjs %}
 <script>
@@ -14,5 +88,8 @@
     {% if success %}
         notyf.success({message: "{{ message }}", background: 'violet'});
     {% endif %}
+    {% for anime in anime %}
+        console.log('{{ anime.anime_Name }}')
+    {% endfor %}
 </script>
 {% endblock %}

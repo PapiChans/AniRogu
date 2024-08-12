@@ -89,3 +89,13 @@
 - Add JavaScript for Anime Info
 - Initiating Navbar for Anime List page
 - Update: About.html
+
+## 0.12.0
+- Date August 12, 2024
+- New Feature: Add / Remove Anime (Completed, It also adds all the Episodes)
+- Adjusted Views from backend and pages
+- Revised Models
+- Initiating Anime List (Incomplete)
+- Anime Info JS: Add Waiting Display for Add or Removing Anime
+
+--- 

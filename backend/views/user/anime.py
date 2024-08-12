@@ -26,6 +26,21 @@ def backendAddAnime(request):
         )
         anime.save()
 
+         # Fetch episode data from Jikan API
+        epi_url = f'https://api.jikan.moe/v4/anime/{anime_number}/episodes'
+        epi_response = requests.get(epi_url)
+        episode_data = epi_response.json()
+
+        # Iterate over the episodes and save them
+        for episode in episode_data['data']:
+            add_episode = AnimeEpisode.objects.create(
+                anime_Id= anime,
+                episode_Number=episode['mal_id'],
+                episode_Name=episode['title'],
+                episode_Status='Not Started'  # Default status, you can adjust as needed
+            )
+            add_episode.save()
+
         # Necessary Data to Render new HTML
         api_url = f'https://api.jikan.moe/v4/anime/{anime_number}/full'
         response = requests.get(api_url)
@@ -80,6 +95,9 @@ def backendRemoveAnime(request):
         anime_number = request.GET.get('anime_number')
         
         anime =  Anime.objects.get(user_Id = request.user.user_Id,anime_Number = anime_number)
+
+        anime_episode = AnimeEpisode.objects.filter(anime_Id = anime.anime_Id)
+        anime_episode.delete()
         anime.delete()
 
         # Necessary Data to Render new HTML
