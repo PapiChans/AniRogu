@@ -233,8 +233,37 @@ def userAnimeList(request):
     if request.user.is_anonymous:
         return redirect('login')
     else:
-        anime = Anime.objects.filter(user_Id = request.user.user_Id)
+        anime = Anime.objects.filter(user_Id = request.user.user_Id).order_by('anime_Name')
+        not_started = Anime.objects.filter(user_Id = request.user.user_Id, anime_Status = 'Not Started').order_by('anime_Name')
+        in_progress = Anime.objects.filter(user_Id = request.user.user_Id, anime_Status = 'In Progress').order_by('anime_Name')
+        completed = Anime.objects.filter(user_Id = request.user.user_Id, anime_Status = 'Completed').order_by('anime_Name')
         context = {
             'anime': anime,
+            'not_started': not_started,
+            'in_progress': in_progress,
+            'completed': completed,
         }
         return render(request, 'animelist.html', context)
+    
+def userAnimeEpisode(request, anime_Id):
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        # Check User
+        user = User.objects.get(user_Id = request.user.user_Id)
+        anime = Anime.objects.get(anime_Id = anime_Id)
+        the_user_id = user.user_Id
+        the_user_id_anime = anime.user_Id.user_Id
+        if the_user_id != the_user_id_anime:
+            context = {
+                'error': True,
+                'message': 'Access Denied',
+            }
+            return render(request, 'home.html', context)
+        else:
+            episode = AnimeEpisode.objects.filter(anime_Id = anime_Id).order_by('episode_Number')
+            context = {
+                'anime': anime,
+                'episode': episode,
+            }
+            return render(request, 'animeepisode.html', context)

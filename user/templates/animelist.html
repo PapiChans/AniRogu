@@ -28,7 +28,7 @@
             <div class="row">
                 {% if anime %}
                     {% for anime in anime %}
-                    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                    <a class="col-sm-12 col-md-6 col-lg-6 mb-3" href="{% url 'user/anime/episode' anime.anime_Id %}">
                         <div class="card card-link-pop">
                             <div class="card-body">
                                 <div class="row">
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                     {% endfor %}
                 {% else %}
                     <h2 class="text-center">No Anime Found</h2>
@@ -66,14 +66,122 @@
           </div>
           <div class="tab-pane" id="not-started" role="tabpanel">
             <div class="row">
+                {% if not_started %}
+                    {% for not_started in not_started %}
+                    <a class="col-sm-12 col-md-6 col-lg-6 mb-3" href="{% url 'user/anime/episode' not_started.anime_Id %}">
+                        <div class="card card-link-pop">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="{{ not_started.anime_Picture }}" class="img-fluid" alt="Anime Image">
+                                    </div>
+                                    <div class="col-10">
+                                        <p>{{ not_started.anime_Name }}</p>
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <h4>Status:</h4>
+                                            </div>
+                                            <div class="col-auto">
+                                                {% if not_started.anime_Status == 'Completed' %}
+                                                <span class="badge bg-success text-purple-fg">{{ not_started.anime_Status }}</span>
+                                                {% elif not_started.anime_Status == 'Not Started' %}
+                                                <span class="badge bg-gray text-purple-fg">{{ not_started.anime_Status }}</span>
+                                                {% elif not_started.anime_Status == 'In Progress' %}
+                                                <span class="badge bg-warning text-purple-fg">{{ not_started.anime_Status }}</span>
+                                                {% else %}
+                                                <span class="badge bg-danger text-purple-fg">Unknown</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                {% else %}
+                    <h2 class="text-center">No Anime Found</h2>
+                {% endif %}
             </div>
           </div>
           <div class="tab-pane" id="in-progress" role="tabpanel">
             <div class="row">
+                {% if in_progress %}
+                    {% for in_progress in in_progress %}
+                    <a class="col-sm-12 col-md-6 col-lg-6 mb-3" href="{% url 'user/anime/episode' in_progress.anime_Id %}">
+                        <div class="card card-link-pop">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="{{ in_progress.anime_Picture }}" class="img-fluid" alt="Anime Image">
+                                    </div>
+                                    <div class="col-10">
+                                        <p>{{ in_progress.anime_Name }}</p>
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <h4>Status:</h4>
+                                            </div>
+                                            <div class="col-auto">
+                                                {% if in_progress.anime_Status == 'Completed' %}
+                                                <span class="badge bg-success text-purple-fg">{{ in_progress.anime_Status }}</span>
+                                                {% elif in_progress.anime_Status == 'Not Started' %}
+                                                <span class="badge bg-gray text-purple-fg">{{ in_progress.anime_Status }}</span>
+                                                {% elif in_progress.anime_Status == 'In Progress' %}
+                                                <span class="badge bg-warning text-purple-fg">{{ in_progress.anime_Status }}</span>
+                                                {% else %}
+                                                <span class="badge bg-danger text-purple-fg">Unknown</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                {% else %}
+                    <h2 class="text-center">No Anime Found</h2>
+                {% endif %}
             </div>
           </div>
           <div class="tab-pane" id="completed" role="tabpanel">
             <div class="row">
+                {% if completed %}
+                    {% for completed in completed %}
+                    <a class="col-sm-12 col-md-6 col-lg-6 mb-3" href="{% url 'user/anime/episode' completed.anime_Id %}">
+                        <div class="card card-link-pop">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="{{ completed.anime_Picture }}" class="img-fluid" alt="Anime Image">
+                                    </div>
+                                    <div class="col-10">
+                                        <p>{{ completed.anime_Name }}</p>
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <h4>Status:</h4>
+                                            </div>
+                                            <div class="col-auto">
+                                                {% if completed.anime_Status == 'Completed' %}
+                                                <span class="badge bg-success text-purple-fg">{{ completed.anime_Status }}</span>
+                                                {% elif completed.anime_Status == 'Not Started' %}
+                                                <span class="badge bg-gray text-purple-fg">{{ completed.anime_Status }}</span>
+                                                {% elif completed.anime_Status == 'In Progress' %}
+                                                <span class="badge bg-warning text-purple-fg">{{ completed.anime_Status }}</span>
+                                                {% else %}
+                                                <span class="badge bg-danger text-purple-fg">Unknown</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                {% else %}
+                    <h2 class="text-center">No Anime Found</h2>
+                {% endif %}
             </div>
           </div>
        </div>
@@ -88,8 +196,6 @@
     {% if success %}
         notyf.success({message: "{{ message }}", background: 'violet'});
     {% endif %}
-    {% for anime in anime %}
-        console.log('{{ anime.anime_Name }}')
-    {% endfor %}
+    window.history.replaceState({}, '', `/user/anime-list`);
 </script>
 {% endblock %}

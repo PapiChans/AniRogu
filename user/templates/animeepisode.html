@@ -1,0 +1,108 @@
+{% extends "partials/main.html" %}
+{% load static %}
+{% block customcss %}
+
+{% endblock %}
+{% block maincontent %}
+<h1>Anime Episode</h1>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-1">
+                <img src="{{ anime.anime_Picture }}" class="img-fluid" alt="Anime Image">
+            </div>
+            <div class="col-auto">
+                <h2>{{ anime.anime_Name }}</h2>
+                <div class="row">
+                    <div class="col-auto">
+                        <h4>Status:</h4>
+                    </div>
+                    <div class="col-auto">
+                        {% if anime.anime_Status == 'Completed' %}
+                        <span class="badge bg-success text-purple-fg">{{ anime.anime_Status }}</span>
+                        {% elif anime.anime_Status == 'Not Started' %}
+                        <span class="badge bg-gray text-purple-fg">{{ anime.anime_Status }}</span>
+                        {% elif anime.anime_Status == 'In Progress' %}
+                        <span class="badge bg-warning text-purple-fg">{{ anime.anime_Status }}</span>
+                        {% else %}
+                        <span class="badge bg-danger text-purple-fg">Unknown</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <button class="btn btn-purple" id="remove_Button" onclick="removeAnime('{{anime.anime_Id}}')">Remove Anime</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-2">
+    <div class="card-body">
+        <h2>Episode List</h2>
+        <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+              <thead>
+                <tr>
+                  <th>Episode Number</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if episode %}
+                    {% for episode in episode%}
+                    <tr>
+                    <td>{{ episode.episode_Number }}</td>
+                    <td>{{ episode.episode_Name }}</td>
+                    <td>
+                        {% if episode.episode_Status == 'Completed' %}
+                        <span class="badge bg-success text-purple-fg">{{ episode.episode_Status }}</span>
+                        {% elif episode.episode_Status == 'Not Started' %}
+                        <span class="badge bg-gray text-purple-fg">{{ episode.episode_Status }}</span>
+                        {% elif episode.episode_Status == 'Watching' %}
+                        <span class="badge bg-warning text-purple-fg">{{ episode.episode_Status }}</span>
+                        {% else %}
+                        <span class="badge bg-danger text-purple-fg">Unknown</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if episode.episode_Status != 'Completed' %}
+                        <div class="btn-list flex-nowrap">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown" aria-expanded="false">
+                                Change Status
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end" style="">
+                                {% if episode.episode_Status != 'Watching' %}
+                                <a class="dropdown-item" id="WatchingButton" onclick="episodeWatching('{{episode.episode_Id}}')">
+                                    Currently Watching
+                                </a>
+                                {% endif %}
+                                <a class="dropdown-item" id="CompletedButton" onclick="episodeCompleted('{{episode.episode_Id}}')">
+                                    Completed
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+              </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block customjs %}
+<script>
+    {% if error %}
+        notyf.error({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+    {% if success %}
+        notyf.success({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+    window.history.replaceState({}, '', `/user/anime/episode/{{anime.anime_Id}}`);
+</script>
+<script src="{% static 'assets/js/page/animeepisode.js' %}"></script>
+{% endblock %}

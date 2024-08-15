@@ -6,7 +6,7 @@
 | ------------------- | --------------------|
 | **Description**     | This Web Application is my Project for personal use, for Anime Episode Tracker and More. |
 | **Project Started**    | June 16, 2024 |
-| **Current Version** | v0.12.0| 
+| **Current Version** | v0.13.0| 
 
 
 ## Technologies Used for this Application

@@ -27,5 +27,6 @@
     {% if error %}
         notyf.error({message: "{{ message }}", background: 'violet'});
     {% endif %}
+    window.history.replaceState({}, '', `/user/home`);
 </script>
 {% endblock %}

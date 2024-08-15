@@ -145,3 +145,77 @@ def backendRemoveAnime(request):
                     message = 'Remove Anime Successfully'
 
         return render(request, 'animeinfo.html', {'data': data, 'r_data': r_data, 'relation_details': relation_details, 'anime_added': anime_added, 'id': anime_number, 'status': status, 'message': message})
+    
+def backendRemoveAnime2(request, anime_Id):
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        fetchEpisodes = AnimeEpisode.objects.filter(anime_Id = anime_Id)
+        fetchEpisodes.delete()
+        fetchAnime = Anime.objects.get(anime_Id = anime_Id)
+        fetchAnime.delete()
+
+        anime = Anime.objects.filter(user_Id = request.user.user_Id).order_by('anime_Name')
+        not_started = Anime.objects.filter(user_Id = request.user.user_Id, anime_Status = 'Not Started').order_by('anime_Name')
+        in_progress = Anime.objects.filter(user_Id = request.user.user_Id, anime_Status = 'In Progress').order_by('anime_Name')
+        completed = Anime.objects.filter(user_Id = request.user.user_Id, anime_Status = 'Completed').order_by('anime_Name')
+        context = {
+            'anime': anime,
+            'not_started': not_started,
+            'in_progress': in_progress,
+            'completed': completed,
+            'success': True,
+            'message': 'Removed Anime Successfully'
+        }
+        return render(request, 'animelist.html', context)
+    
+def backendWatchingEpisode(request, episode_Id):
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        EditEpisode = AnimeEpisode.objects.get(episode_Id = episode_Id)
+        EditEpisode.episode_Status = 'Watching'
+        EditEpisode.save()
+
+        anime = EditEpisode.anime_Id
+        anime.anime_Status = 'In Progress'
+        anime.save()
+        episode = AnimeEpisode.objects.filter(anime_Id = anime).order_by('episode_Number')
+        context = {
+            'anime': anime,
+            'episode': episode,
+            'success': True,
+            'message': 'Update Episode Successfully'
+        }
+        return render(request, 'animeepisode.html', context)
+    
+def backendCompletedEpisode(request, episode_Id):
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        EditEpisode = AnimeEpisode.objects.get(episode_Id = episode_Id)
+        EditEpisode.episode_Status = 'Completed'
+        EditEpisode.save()
+
+        anime = EditEpisode.anime_Id
+
+        # Retrieve all episodes related to this Anime
+        total_episodes = AnimeEpisode.objects.filter(anime_Id=anime).count()
+        completed_episodes = AnimeEpisode.objects.filter(anime_Id=anime, episode_Status='Completed').count()
+
+        # Check if all episodes are completed
+        all_completed = (total_episodes == completed_episodes)
+
+        # Update the anime status based on episodes' status
+        anime_status = 'Completed' if all_completed else 'In Progress'
+        anime.anime_Status = anime_status
+        anime.save()
+
+        episode = AnimeEpisode.objects.filter(anime_Id = anime).order_by('episode_Number')
+        context = {
+            'anime': anime,
+            'episode': episode,
+            'success': True,
+            'message': 'Update Episode Successfully'
+        }
+        return render(request, 'animeepisode.html', context)
