@@ -24,4 +24,5 @@ urlpatterns = [
     path('backend/RemoveAnime2/<uuid:anime_Id>', views.backendRemoveAnime2, name='backend/RemoveAnime2'),
     path('backend/WatchingEpisode/<uuid:episode_Id>', views.backendWatchingEpisode, name='backend/WatchingEpisode'),
     path('backend/CompletedEpisode/<uuid:episode_Id>', views.backendCompletedEpisode, name='backend/CompletedEpisode'),
+    path('backend/AnimeMarkAsCompleted/<uuid:anime_Id>', views.backendAnimeMarkAsCompleted, name='backend/AnimeMarkAsCompleted'),
 ]

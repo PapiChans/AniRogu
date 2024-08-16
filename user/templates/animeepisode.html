@@ -1,7 +1,7 @@
 {% extends "partials/main.html" %}
 {% load static %}
 {% block customcss %}
-
+<link href="{% static 'assets/libs/datatables/dataTables.min.css' %}" rel="stylesheet"/>
 {% endblock %}
 {% block maincontent %}
 <h1>Anime Episode</h1>
@@ -29,6 +29,9 @@
                         {% endif %}
                     </div>
                 </div>
+                {% if anime.anime_Status != 'Completed' %}
+                <button class="btn bg-purple-lt" id="MarkAsCompleted_Button" onclick="AnimeMarkAsCompleted('{{anime.anime_Id}}')">Mark as Completed</button>
+                {% endif %}
                 <button class="btn btn-purple" id="remove_Button" onclick="removeAnime('{{anime.anime_Id}}')">Remove Anime</button>
             </div>
         </div>
@@ -38,22 +41,22 @@
     <div class="card-body">
         <h2>Episode List</h2>
         <div class="table-responsive">
-            <table class="table table-vcenter card-table">
+            <table class="display hover row-border stripe table-responsive" id="episode-table" style="width: 100%;">
               <thead>
                 <tr>
-                  <th>Episode Number</th>
-                  <th>Name</th>
-                  <th>Status</th>
-                  <th>Actions</th>
+                  <th class="text-center">Episode Number</th>
+                  <th class="text-center">Name</th>
+                  <th class="text-center">Status</th>
+                  <th class="text-center">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {% if episode %}
                     {% for episode in episode%}
                     <tr>
-                    <td>{{ episode.episode_Number }}</td>
-                    <td>{{ episode.episode_Name }}</td>
-                    <td>
+                    <td class="text-center">{{ episode.episode_Number }}</td>
+                    <td class="text-left">{{ episode.episode_Name }}</td>
+                    <td class="text-center">
                         {% if episode.episode_Status == 'Completed' %}
                         <span class="badge bg-success text-purple-fg">{{ episode.episode_Status }}</span>
                         {% elif episode.episode_Status == 'Not Started' %}
@@ -66,7 +69,7 @@
                     </td>
                     <td>
                         {% if episode.episode_Status != 'Completed' %}
-                        <div class="btn-list flex-nowrap">
+                        <div class="btn-list flex-nowrap justify-content-center">
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown" aria-expanded="false">
                                 Change Status
@@ -105,4 +108,10 @@
     window.history.replaceState({}, '', `/user/anime/episode/{{anime.anime_Id}}`);
 </script>
 <script src="{% static 'assets/js/page/animeepisode.js' %}"></script>
+<script src="{% static 'assets/libs/datatables/dataTables.min.js' %}"></script>
+<script>
+new DataTable('#episode-table',{
+
+});
+</script>
 {% endblock %}

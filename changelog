@@ -105,4 +105,12 @@
 - Anime List (Completed)
 - Anime Change Episode Status JS (Completed and Working)
 
+## 0.14.0
+- Date August 16, 2024
+- Initiate DataTables for Episode List
+- Add Button: One Click for all Completed Anime
+- Removed ALL UNUSED Assets
+- Add Custom 404 Page
+- Initiate Static Root for Assets in Production
+
 --- 

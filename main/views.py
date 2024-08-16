@@ -42,3 +42,6 @@ def userForgot(request):
         else:
             # Redirect to forgot password page
             return render(request, 'forgot-password.html')
+        
+def userError404(request, exception=None):
+    return render(request, 'HTTPResponse/error404.html', status=404)

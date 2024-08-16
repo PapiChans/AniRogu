@@ -219,3 +219,25 @@ def backendCompletedEpisode(request, episode_Id):
             'message': 'Update Episode Successfully'
         }
         return render(request, 'animeepisode.html', context)
+
+def backendAnimeMarkAsCompleted(request, anime_Id):
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        anime = Anime.objects.get(anime_Id = anime_Id)
+        anime.anime_Status = 'Completed'
+        anime.save()
+
+        all_episodes = AnimeEpisode.objects.filter(anime_Id = anime_Id)
+        for edit_episode in all_episodes:
+            edit_episode.episode_Status = 'Completed'
+            edit_episode.save()
+        
+        episode = AnimeEpisode.objects.filter(anime_Id = anime_Id).order_by('episode_Number')
+        context = {
+            'anime': anime,
+            'episode': episode,
+            'success': True,
+            'message': 'Update Anime Successfully'
+        }
+        return render(request, 'animeepisode.html', context)
