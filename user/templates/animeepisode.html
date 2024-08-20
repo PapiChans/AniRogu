@@ -39,6 +39,7 @@
 </div>
 <div class="card mt-2">
     <div class="card-body">
+        {% if episode %}
         <h2>Episode List</h2>
         <div class="table-responsive">
             <table class="display hover row-border stripe table-responsive" id="episode-table" style="width: 100%;">
@@ -51,7 +52,6 @@
                 </tr>
               </thead>
               <tbody>
-                {% if episode %}
                     {% for episode in episode%}
                     <tr>
                     <td class="text-center">{{ episode.episode_Number }}</td>
@@ -90,10 +90,12 @@
                     </td>
                     </tr>
                     {% endfor %}
-                {% endif %}
               </tbody>
             </table>
         </div>
+        {% else %}
+        <h2 class="text-center">No Episode Available</h2>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

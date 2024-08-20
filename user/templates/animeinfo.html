@@ -11,12 +11,18 @@
         <img src="{{ data.images.webp.large_image_url }}" class="img-fluid" alt="Anime Image">
     </div>
     <div class="col-12 col-lg-8">
-        <h1>{{data.title}}</h1>
+        <h1>{% if data.title_english %}
+            {{ data.title_english }}
+            {% else %}
+                {{ data.title }}
+            {% endif %}
+        </h1>
         <h3>Other titles:
             <span class="text-muted">
             {{data.title}} |
             {{data.title_english}} |
             {{data.title_japanese}} |
+            {{data.title_synonyms}}
             </span>
         </h3>
         <h3>Type:
@@ -120,7 +126,17 @@
         notyf.success({message: "{{ message }}", background: 'violet'});
     {% endif %}
     const anime_Number = "{{id}}"
-    const anime_Name = "{{data.title}}"
+    {% if data.title_english %}
+        // Decode HTML entities function
+        function decodeHTMLEntities(text) {
+            var textarea = document.createElement('textarea');
+            textarea.innerHTML = text;
+            return textarea.value;
+        }
+        const anime_Name = decodeHTMLEntities("{{ data.title_english|escapejs }}");
+    {% else %}
+        const anime_Name = "{{ data.title}}";
+    {% endif %}
     const anime_Picture = "{{data.images.webp.large_image_url}}"
     window.history.replaceState({}, '', `/user/anime/id=${anime_Number}`);
 </script>

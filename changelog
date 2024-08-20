@@ -117,4 +117,12 @@
 - Date August 19, 2024
 - Anime List Revised into DataTables for more functionality available
 
+## 0.14.2
+- Date August 20, 2024
+- BUG FIX: The Entire ROW per data are now click to view the Anime Episode
+- BUG FIX: All the apostrophe (') Symbol that includes in the Anime Name will now added successfully
+- Alternate Displays: Add Message Displays when the data isn't available
+- Remove Unused line of code
+
+
 --- 

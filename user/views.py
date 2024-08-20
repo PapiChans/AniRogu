@@ -216,7 +216,6 @@ def userAbout(request):
         context = {
             'last_modified_time': formatted_date,
         }
-        print(context)
         return render(request, 'about.html', context)
 
 def userProfile(request):
