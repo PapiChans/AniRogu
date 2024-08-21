@@ -124,5 +124,8 @@
 - Alternate Displays: Add Message Displays when the data isn't available
 - Remove Unused line of code
 
+## 0.14.3
+- Date August 21, 2024
+- Add Custom Error 500
 
 --- 

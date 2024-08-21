@@ -45,3 +45,6 @@ def userForgot(request):
         
 def userError404(request, exception=None):
     return render(request, 'HTTPResponse/error404.html', status=404)
+
+def userError500(request, exception=None):
+    return render(request, 'HTTPResponse/error500.html', status=500)

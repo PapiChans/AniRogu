@@ -1,0 +1,38 @@
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <title>AniRogu</title>
+        <link href="{% static 'assets/css/tabler.min.css' %}" rel="stylesheet"/>
+        <link rel="icon" href="/static/assets/images/logo.png" type="image/x-icon">
+        <style>
+          @import url('https://rsms.me/inter/inter.css');
+          :root {
+              --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+          }
+          body {
+              font-feature-settings: "cv03", "cv04", "cv11";
+          }
+        </style>
+    </head>
+  <body data-bs-theme="dark" class="border-top-wide border-primary d-flex flex-column">
+    <div class="page page-center">
+        <div class="container-tight py-4">
+          <div class="empty">
+            <img src="{% static 'assets/images/error500.png' %}" alt="AniRogu">
+            <p class="empty-title">Oops… You just found an Error 500</p>
+            <p class="empty-subtitle text-secondary">
+                Something went wrong on our end. We're working to fix it.
+            </p>
+            <div class="empty-action">
+              <a href="{% url 'index' %}" class="btn btn-purple">
+                Go Back
+              </a>
+            </div>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>
