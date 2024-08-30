@@ -13,4 +13,5 @@ urlpatterns = [
     path('profile', views.userProfile, name='user/profile'),
     path('anime-list', views.userAnimeList, name='user/anime-list'),
     path('anime/episode/<uuid:anime_Id>', views.userAnimeEpisode, name='user/anime/episode'),
+    path('anime/characters/id=<str:id>', views.userAnimeCharacters, name='user/anime/characters/id'),
 ]

@@ -1,0 +1,69 @@
+{% extends "partials/main.html" %}
+{% load static %}
+{% block customcss %}
+<link href="{% static 'assets/libs/datatables/dataTables.min.css' %}" rel="stylesheet"/>
+{% endblock %}
+{% block maincontent %}
+<h1>Characters</h1>
+{% if character_list %}
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="display hover row-border stripe table-responsive" id="character-table" style="width: 100%;">
+              <thead>
+                <tr>
+                  <th class="text-center">Photo</th>
+                  <th class="text-center">Name</th>
+                  <th class="text-center">Role</th>
+                  <th class="text-center">Voice Actors / Seiyuu</th>
+                </tr>
+              </thead>
+              <tbody>
+                    {% for character_list in character_list %}
+                    <tr>
+                        <td class="text-center"><img src="{{ character_list.character.images.jpg.image_url}}" class="img-thumbnail" alt="Anime Image" style="width: 100px; height: 150px"></td>
+                        <td class="text-center">{{ character_list.character.name}}</td>
+                        <td class="text-center">{{ character_list.role}}</td>
+                        <td class="text-center">
+                            {% if character_list.voice_actors %}
+                            {% for voice_actors in character_list.voice_actors %}
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="{{ voice_actors.person.images.jpg.image_url }}" class="img-thumbnail" alt="Anime Image" style="width: 90px; height: 110px">
+                                </div>
+                                <div class="col-9 align-content-center">
+                                    <p>{{ voice_actors.person.name }} ({{ voice_actors.language }})</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                                <h2 class="text-center">No Available Data.</h2>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<h1 class="text-center mt=2">No Character Fetched.</h1>
+{% endif %}
+{% endblock %}
+{% block customjs %}
+<script>
+    {% if status == 'error' %}
+        notyf.error({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+    {% if status == 'success' %}
+        notyf.success({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+</script>
+<script src="{% static 'assets/libs/datatables/dataTables.min.js' %}"></script>
+<script>
+new DataTable('#character-table',{
+
+});
+</script>
+{% endblock %}

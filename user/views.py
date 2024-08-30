@@ -266,3 +266,18 @@ def userAnimeEpisode(request, anime_Id):
                 'episode': episode,
             }
             return render(request, 'animeepisode.html', context)
+        
+def userAnimeCharacters(request, id):
+    if request.user.is_anonymous:
+        return redirect('login')
+    else:
+        char_url = f'https://api.jikan.moe/v4/anime/{id}/characters'
+        char_response = requests.get(char_url)
+        if char_response.status_code == 200:
+            # Character
+            character_list = char_response.json().get('data',[])
+        
+        context = {
+            'character_list': character_list
+        }
+        return render(request, 'characters.html', context)
