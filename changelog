@@ -132,4 +132,10 @@
 - Date August 30, 2024
 - Add Characters Section
 
+## 0.15.1
+- Date September 3, 2024
+- Revise Error display in account recovery
+- BUG FIX: Some Errors in Anime info due to lack of information
+- MAJOR ADJUSTMENT: Guest Users are allowed to browse anime as well.
+
 --- 

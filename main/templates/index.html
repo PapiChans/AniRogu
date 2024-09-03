@@ -1,12 +1,17 @@
 {% load static %}
+<!DOCTYPE HTML>
 <html lang="en">
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
         <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-        <title>AniRogu</title>
+        <title>AniRogu | Personal Anime Tracker</title>
+        <!-- CSS files -->
         <link href="{% static 'assets/css/tabler.min.css' %}" rel="stylesheet"/>
-        <link rel="icon" href="/static/assets/images/logo.png" type="image/x-icon">
+        <link href="{% static 'assets/css/demo.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'assets/libs/notyf/notyf.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'assets/libs/sweetalert/sweetalert2.all.min.css' %}" rel="stylesheet"/>
+        <link rel="icon" href="{% static 'assets/images/logo.png' %}" type="image/x-icon">
         <style>
           @import url('https://rsms.me/inter/inter.css');
           :root {
@@ -17,22 +22,107 @@
           }
         </style>
     </head>
-  <body data-bs-theme="dark" class=" d-flex flex-column">
-  <div class="page page-center">
-      <div class="container container-tight py-4">
-        <div class="text-center mb-3">
-          <a href="{% url 'index' %}" class="navbar-brand">
-            <img src="{% static 'assets/images/logotext.png' %}" width="150" height="60" alt="AniRogu" class="navbar-brand" >
-          </a>
-        </div>
-        <div class="card card-md">
-          <div class="card-body">
-            <h2 class="h2 text-center mb-4 text-purple">Welcome to AniRogu and There's nothing here</h2>
-            <a href="{% url 'login' %}" class="text-white"><button class="btn btn-purple w-100">Direct to Log in</button></a>
+<body data-bs-theme="dark">
+    <div class="page">
+        <!-- Navbar -->
+        <header class="navbar navbar-expand-md d-print-none" >
+          <div class="container-xl">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <h1 class="navbar-brand d-none-navbar-horizontal pe-0 pe-md-3">
+              <a href="{% url 'index' %}">
+                <img src="{% static 'assets/images/logotext.png' %}" width="110" height="32" alt="AniRogu" class="navbar-brand-image" >
+              </a>
+            </h1>
+            <div class="navbar-nav flex-row order-md-last">
+              <div class="nav-item dropdown">
+                <a href="{% url 'login' %}"><button class="btn btn-purple">Log In</button></a>
+              </div>
+            </div>
           </div>
+        </header>
+        <header class="navbar-expand-md">
+          <div class="collapse navbar-collapse" id="navbar-menu">
+            <div class="navbar">
+              <div class="container-xl">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user/home' %}" >
+                      <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg>
+                      </span>
+                      <span class="nav-link-title">
+                        Home
+                      </span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user/about' %}" >
+                      <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
+                      </span>
+                      <span class="nav-link-title">
+                        About AniRogu
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="page-wrapper">
+          <!-- Page body -->
+          <div class="page-body">
+            <div class="container-xl d-flex flex-column justify-content-center">
+              <!-- Open Main Content-->
+              <div class="text-center">
+                <img src="{% static 'assets/images/logotext.png' %}" class="img-fluid" width="200" height="100" alt="AniRogu" alt="Responsive image">
+                <h1 class="mt-2">Browse Anime</h1>
+                </div>
+                <form id="SearchAnimeForm" class="needs-validation" action="{% url 'backend/SearchAnime' %}" method="POST" novalidate>{% csrf_token %}
+                    <div class="row g-2 justify-content-center">
+                        <div class="col-8">
+                        <input type="text" id="animekeyword" name="animekeyword" class="form-control" maxlength="50" placeholder="Enter Anime Keywords">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" id="search-submit" class="btn btn-purple">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+              <!-- Closed Main Content-->
+            </div>
+          </div>
+          <footer class="footer footer-transparent d-print-none">
+            <div class="container-xl">
+              <div class="row text-center align-items-center flex-row-reverse">
+                <div class="col-lg-auto ms-lg-auto">
+                  <ul class="list-inline list-inline-dots mb-0">
+                    <p>Created for Personal Use</p>
+                  </ul>
+                </div>
+                <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                  <ul class="list-inline list-inline-dots mb-0">
+                    <li class="list-inline-item">
+                      AniRogu | Personal Anime Tracker
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </footer>
         </div>
-      </div>
     </div>
-  </div>
-  </body>
+</body>
+<script src="{% static 'assets/django-essentials/validation.js' %}"></script>
+<script src="{% static 'assets/libs/notyf/notyf.min.js' %}"></script>
+<script src="{% static 'assets/libs/sweetalert/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'assets/django-essentials/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/tabler.min.js' %}" defer></script>
+<script src="{% static 'assets/js/demo.min.js' %}" defer></script>
+<script src="{% static 'assets/js/page/library-init.js' %}"></script>
 </html>

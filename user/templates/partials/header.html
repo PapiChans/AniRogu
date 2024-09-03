@@ -14,6 +14,7 @@
             </h1>
             <div class="navbar-nav flex-row order-md-last">
               <div class="nav-item dropdown">
+                {% if not request.user.is_anonymous %}
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
                   <span class="avatar avatar-sm" style="background-image: url({% static 'assets/images/logo.png' %})"></span>
                   <div class="d-none d-xl-block ps-2">
@@ -26,6 +27,9 @@
                   <a href="{% url 'auth/logout' %}" class="dropdown-item">Logout</a>
                   {% comment %} <div class="dropdown-divider"></div> {% endcomment %}
                 </div>
+                {% else %}
+                <a href="{% url 'login' %}"><button class="btn btn-purple">Log In</button></a>
+                {% endif %}
               </div>
             </div>
           </div>

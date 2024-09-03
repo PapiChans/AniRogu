@@ -60,14 +60,16 @@
             {{data.year}}
             </span>
         </h3>
-        {% if not anime_added %}
-            <button class="btn btn-outline-purple" id="anime_Add" onclick="addAnimeClick()">
-                Add to Watchlist
-            </button>
-        {% else %}
-            <button class="btn btn-purple" id="anime_Remove" onclick="removeAnimeClick()">
-                Remove from Watchlist
-            </button>
+        {% if not request.user.is_anonymous %}
+            {% if not anime_added %}
+                <button class="btn btn-outline-purple" id="anime_Add" onclick="addAnimeClick()">
+                    Add to Watchlist
+                </button>
+            {% else %}
+                <button class="btn btn-purple" id="anime_Remove" onclick="removeAnimeClick()">
+                    Remove from Watchlist
+                </button>
+            {% endif %}
         {% endif %}
             <a href="{% url 'user/anime/characters/id' id=data.mal_id   %}"><button class="btn btn-purple">Characters</button></a>
     </div>
@@ -111,6 +113,8 @@
                     </div>
                 </a>
                 {% endfor %}
+            {% else %}
+                <h1 class="text-center">No Relations Available</h1>
             {% endif %}
         </div>
     </div>

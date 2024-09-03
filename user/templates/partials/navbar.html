@@ -13,6 +13,7 @@
                 </span>
               </a>
             </li>
+            {% if not request.user.is_anonymous %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'user/anime-list' %}" >
                 <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
@@ -23,6 +24,7 @@
                 </span>
               </a>
             </li>
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'user/about' %}" >
                 <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->

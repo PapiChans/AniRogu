@@ -26,6 +26,10 @@ def backendAddAnime(request):
         )
         anime.save()
 
+        anime_added = True
+        status = 'success'
+        message = 'Add Anime Successfully'
+
          # Fetch episode data from Jikan API
         epi_url = f'https://api.jikan.moe/v4/anime/{anime_number}/episodes'
         epi_response = requests.get(epi_url)

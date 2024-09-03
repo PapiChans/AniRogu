@@ -85,6 +85,7 @@ def backendaccountrecovery(request):
                 return render(request, 'login.html', {
                     'form': form,
                     'notyf': True,
+                    'error': False,
                     'message': message
                 })
             else:
@@ -93,6 +94,7 @@ def backendaccountrecovery(request):
                 return render(request, 'forgot-password.html', {
                     'form': form,
                     'notyf': True,
+                    'error': True,
                     'message': message
                 })
     else:
