@@ -61,6 +61,7 @@ class Anime(models.Model):
     anime_Name = models.CharField(max_length=100, null=False)
     anime_Picture = models.URLField(null=False)
     anime_Status = models.CharField(max_length=15, null=False)
+    date_Created = models.DateTimeField(null=False, auto_now_add=True)
     class Meta:
         db_table = 'Anime'
 

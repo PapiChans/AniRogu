@@ -7,7 +7,7 @@
 <h1>Anime List</h1>
 <div class="card">
     <div class="card-body">
-        {% if anime %}
+        {% if anime_with_raw_time %}
         <div class="table-responsive">
             <table class="display hover row-border stripe compact" id="anime-table">
             <thead>
@@ -15,25 +15,27 @@
                 <th class="text-center">Cover</th>
                 <th class="text-center">Anime</th>
                 <th class="text-center">Status</th>
+                <th class="text-center">Date Added</th>
                 </tr>
             </thead>
             <tbody>
-                {% for anime in anime %}
-                        <tr onclick="window.location='{% url 'user/anime/episode' anime.anime_Id %}'" style="cursor: pointer;">
-                            <td class="text-center"><img src="{{ anime.anime_Picture }}" class="img-thumbnail" alt="Anime Image" style="width: 70px; height: 100px"></a></td>
-                            <td class="text-left">{{ anime.anime_Name }}</td>
-                            <td class="text-center">
-                                {% if anime.anime_Status == 'Completed' %}
-                                <span class="badge bg-success text-purple-fg">{{ anime.anime_Status }}</span>
-                                {% elif anime.anime_Status == 'Not Started' %}
-                                <span class="badge bg-gray text-purple-fg">{{ anime.anime_Status }}</span>
-                                {% elif anime.anime_Status == 'In Progress' %}
-                                <span class="badge bg-warning text-purple-fg">{{ anime.anime_Status }}</span>
-                                {% else %}
-                                <span class="badge bg-danger text-purple-fg">Unknown</span>
-                                {% endif %}
-                            </td>
-                        </tr>
+                {% for item in anime_with_raw_time %}
+                    <tr onclick="window.location='{% url 'user/anime/episode' item.anime.anime_Id %}'" style="cursor: pointer;">
+                        <td class="text-center"><img src="{{ item.anime.anime_Picture }}" class="img-thumbnail" alt="Anime Image" style="width: 70px; height: 100px"></td>
+                        <td class="text-left">{{ item.anime.anime_Name }}</td>
+                        <td class="text-center">
+                            {% if item.anime.anime_Status == 'Completed' %}
+                            <span class="badge bg-success text-purple-fg">{{ item.anime.anime_Status }}</span>
+                            {% elif item.anime.anime_Status == 'Not Started' %}
+                            <span class="badge bg-gray text-purple-fg">{{ item.anime.anime_Status }}</span>
+                            {% elif item.anime.anime_Status == 'In Progress' %}
+                            <span class="badge bg-warning text-purple-fg">{{ item.anime.anime_Status }}</span>
+                            {% else %}
+                            <span class="badge bg-danger text-purple-fg">Unknown</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">{{ item.raw_time }}</td>
+                    </tr>
                 {% endfor %}
             </tbody>
             </table>
@@ -56,8 +58,6 @@
 </script>
 <script src="{% static 'assets/libs/datatables/dataTables.min.js' %}"></script>
 <script>
-    new DataTable('#anime-table',{
-    
-    });
-    </script>
+    new DataTable('#anime-table', {});
+</script>
 {% endblock %}

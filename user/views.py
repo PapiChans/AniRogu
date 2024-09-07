@@ -2,6 +2,8 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 import requests, os
 from datetime import datetime
+from django.utils.dateformat import format as date_format
+from django.utils import timezone
 from backend.models import *
 
 # Create your views here.
@@ -221,18 +223,26 @@ def userProfile(request):
 def userAnimeList(request):
     if request.user.is_anonymous:
         return redirect('login')
-    else:
-        anime = Anime.objects.filter(user_Id = request.user.user_Id).order_by('anime_Name')
-        not_started = Anime.objects.filter(user_Id = request.user.user_Id, anime_Status = 'Not Started').order_by('anime_Name')
-        in_progress = Anime.objects.filter(user_Id = request.user.user_Id, anime_Status = 'In Progress').order_by('anime_Name')
-        completed = Anime.objects.filter(user_Id = request.user.user_Id, anime_Status = 'Completed').order_by('anime_Name')
-        context = {
-            'anime': anime,
-            'not_started': not_started,
-            'in_progress': in_progress,
-            'completed': completed,
-        }
-        return render(request, 'animelist.html', context)
+
+    # Fetch the data from the database
+    anime = Anime.objects.filter(user_Id=request.user.user_Id).order_by('anime_Name')
+
+    anime_with_raw_time = []
+    for a in anime:
+        # Ensure datetime is timezone-aware and format it
+        local_time = timezone.localtime(a.date_Created)  # Converts to local timezone
+        formatted_time = local_time.strftime('%B %d, %Y - %I:%M %p')
+
+        anime_with_raw_time.append({
+            'anime': a,
+            'raw_time': formatted_time
+        })
+
+    # Prepare the context
+    context = {
+        'anime_with_raw_time': anime_with_raw_time,
+    }
+    return render(request, 'animelist.html', context)
     
 def userAnimeEpisode(request, anime_Id):
     if request.user.is_anonymous:
