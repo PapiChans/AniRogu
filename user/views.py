@@ -15,7 +15,7 @@ def userHome(request):
     
 def userAnimeBrowse(request, keyword, page):
     # Make a request to the external API
-    api_url = f'https://api.jikan.moe/v4/anime?q={keyword}&page={page}'
+    api_url = f'https://api.jikan.moe/v4/anime?q={keyword}&page={page}&sfw'
     response = requests.get(api_url)
 
     # Genre URL
@@ -278,3 +278,7 @@ def userAnimeCharacters(request, id):
         'character_list': character_list
     }
     return render(request, 'characters.html', context)
+
+# H-Anime Section
+def HUserHome(request):
+    return render(request, 'h-anime/h-home.html')

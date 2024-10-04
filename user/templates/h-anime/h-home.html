@@ -1,0 +1,32 @@
+{% extends "partials/main.html" %}
+{% load static %}
+{% block customcss %}
+
+{% endblock %}
+{% block maincontent %}
+<div class="text-center">
+<img src="{% static 'assets/images/logotext.png' %}" class="img-fluid" width="200" height="100" alt="AniRogu" alt="Responsive image">
+<h1 class="mt-2">Browse H-Anime</h1>
+</div>
+<form id="SearchAnimeForm" class="needs-validation" action="{% url 'backend/SearchAnime' %}" method="POST" novalidate>{% csrf_token %}
+    <div class="row g-2 justify-content-center">
+        <div class="col-8">
+        <input type="text" id="animekeyword" name="animekeyword" class="form-control" maxlength="50" placeholder="Enter H-Anime Keywords">
+        </div>
+        <div class="col-auto">
+            <button type="submit" id="search-submit" class="btn btn-purple">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
+                Search
+            </button>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block customjs %}
+<script>
+    {% if error %}
+        notyf.error({message: "{{ message }}", background: 'violet'});
+    {% endif %}
+    window.history.replaceState({}, '', `/user/h/home`);
+</script>
+{% endblock %}

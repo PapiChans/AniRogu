@@ -8,7 +8,9 @@
                 {% if genre %}
                 <div style="max-height: 300px; overflow-y: auto;">
                     {% for genre in genre %}
+                        {% if genre.name != "Hentai" %}
                         <a class="dropdown-item" href="{% url 'user/browse/genre' genres=genre.name page=1 %}">{{ genre.name }}</a>
+                        {% endif %}
                     {% endfor %}
                 </div>
                 {% endif %}
