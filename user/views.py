@@ -282,3 +282,36 @@ def userAnimeCharacters(request, id):
 # H-Anime Section
 def HUserHome(request):
     return render(request, 'h-anime/h-home.html')
+
+def userHAnimeBrowse(request, keyword, page):
+    # Make a request to the external API
+    api_url = f'https://api.jikan.moe/v4/anime?q={keyword}&page={page}'
+    response = requests.get(api_url)
+
+
+    if response.status_code == 200:
+        data = response.json().get('data', [])
+        pagination = response.json().get('pagination', {})
+
+        current_page = pagination.get('current_page', 1)
+        last_visible_page = pagination.get('last_visible_page', 1)
+        has_next_page = pagination.get('has_next_page', False)
+
+        # Calculate the range of pages to display
+        page_range = range(1, last_visible_page + 1)
+
+        context = {
+            'keyword': keyword,
+            'data': data,
+            'current_page': current_page,
+            'last_visible_page': last_visible_page,
+            'has_next_page': has_next_page,
+            'page_range': page_range,
+        }
+
+        return render(request, 'h-anime/h-results.html', context)
+    else:
+        # Handle API request error
+        error = True
+        message = "Failed to fetch data from external API."
+        return render(request, 'h-results.html', {'message': message, 'error': error})

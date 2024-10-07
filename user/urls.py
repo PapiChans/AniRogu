@@ -17,4 +17,5 @@ urlpatterns = [
 
     # H-Anime Section
     path('h/home', views.HUserHome, name='user/h/home'),
+    path('h/browse/q=<str:keyword>/page=<int:page>', views.userHAnimeBrowse, name='user/h/browse'),
 ]

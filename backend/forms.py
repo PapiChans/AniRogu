@@ -84,3 +84,19 @@ class ChangePasswordForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         return cleaned_data
+    
+class SearchHAnimeForm(forms.Form):
+    hanimekeyword = forms.CharField(
+        label='H-Anime Keywords',
+        max_length=50,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter H-Anime Keywords'
+        }),
+        required=True
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        # Additional validation can be performed here if needed
+        return cleaned_data

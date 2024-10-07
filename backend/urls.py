@@ -12,6 +12,9 @@ urlpatterns = [
     # Browse Anime
     path('backend/SearchAnime', views.backendSearchAnime, name="backend/SearchAnime"),
 
+    # Browse HAnime
+    path('backend/SearchHAnime', views.backendSearchHAnime, name="backend/SearchHAnime"),
+
     # Profile
     path('backend/ChangeProfile', views.backendChangeProfile, name='backend/ChangeProfile'),
     path('backend/ChangePassword', views.backendChangePassword, name='backend/ChangePassword'),
