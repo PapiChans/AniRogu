@@ -285,7 +285,7 @@ def HUserHome(request):
 
 def userHAnimeBrowse(request, keyword, page):
     # Make a request to the external API
-    api_url = f'https://api.jikan.moe/v4/anime?q={keyword}&page={page}'
+    api_url = f'https://api.jikan.moe/v4/anime?q={keyword}&page={page}&rating=rx'
     response = requests.get(api_url)
 
 
